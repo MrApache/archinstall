@@ -23,10 +23,10 @@ timedatectl set-timezone $TIME
 
 parted --script $DISK \
 	mklabel gpt \
-	mkpart primary fat32 1MiB 261MiB \
+	mkpart "efi" fat32 1MiB 261MiB \
 	set 1 esp on \
-	mkpart primary linux-swap 261MiB 4G \
-	mkpart primary btrfs 4G 100%
+	mkpart "swap" linux-swap 261MiB 4G \
+	mkpart "linux" btrfs 4G 100%
 
 mkfs.fat -F 32 $EFI
 mkswap $SWAP
@@ -51,6 +51,6 @@ locale-gen
 printf 'LANG=ru_RU.UTF-8' > /etc/locale.conf
 printf $HOSTNAME > /etc/hostname
 
-passwd $ROOTPASS
+echo $ROOTPASS | passwd
 useradd -m $USERNAME
 echo $USERPASS | passwd $USERNAME
