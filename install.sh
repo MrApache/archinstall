@@ -54,10 +54,12 @@ mount $ROOT /mnt
 mount --mkdir $EFI /mnt/boot
 swapon $SWAP
 
-pacstrap -K /mnt base linux linux-firmware neovim
+pacstrap -K /mnt base linux linux-firmware neovim grub efibootmgr
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/bash -e << EOF
+grub-install --efi-directory=/boot/efi --target=x86_64-efi $DISK
+grub-mkconfig -o /boot/grub/grub.cfg
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 hwclock --systohc
 
