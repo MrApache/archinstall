@@ -14,12 +14,12 @@ read ROOTPASS
 echo "Enter /dev/DISK:"
 read DISK
 
-TIME=Europe/Samara
+TIME="Europe/Samara"
 EFI="${DISK}1"
 SWAP="${DISK}2"
 ROOT="${DISK}3"
 
-timedatectl set-timezone TIME
+timedatectl set-timezone $TIME
 
 parted $DISK mklabel gpt
 parted set 1 esp on
