@@ -15,18 +15,36 @@ echo "Enter /dev/DISK:"
 read DISK
 
 TIME="Europe/Samara"
-EFI="${DISK}1"
-SWAP="${DISK}2"
-ROOT="${DISK}3"
 
 timedatectl set-timezone $TIME
 
-parted --script $DISK \
-	mklabel gpt \
-	mkpart "efi" fat32 1MiB 261MiB \
-	set 1 esp on \
-	mkpart "swap" linux-swap 261MiB 4G \
-	mkpart "linux" btrfs 4G 100%
+make_partitions()
+{
+	parted
+	echo "Continue[y/n]?"
+	read ANSWER
+	if [ "$ANSWER" != "y" ]; then
+		make_partitions
+	fi
+}
+
+make_partitions
+
+#parted --script $DISK \
+#	mklabel gpt \
+#	mkpart "efi" fat32 1MiB 261MiB \
+#	set 1 esp on \
+#	mkpart "swap" linux-swap 261MiB 4G \
+#	mkpart "linux" btrfs 4G 100%
+
+echo "Enter EFI partition:"
+read EFI
+
+echo "Enter swap partition:"
+read SWAP
+
+echo "Enter root partition:"
+read ROOT
 
 mkfs.fat -F 32 $EFI
 mkswap $SWAP
@@ -43,8 +61,6 @@ arch-chroot /mnt /bin/bash -e << EOF
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 hwclock --systohc
 
-#(нужно отредактировать /etc/locale.gen)
-#(удалить символ # у ru и en локалей)
 sed -i -e 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen
 sed -i -e 's/#ru_RU.UTF-8/ru_RU.UTF-8/g' /etc/locale.gen
 locale-gen
