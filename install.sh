@@ -21,11 +21,12 @@ ROOT="${DISK}3"
 
 timedatectl set-timezone $TIME
 
-parted $DISK mklabel gpt
-parted set 1 esp on
-parted $DISK mkpart "EFI system partition" fat32 1MiB 261MiB
-parted $DISK mkpart "swap" linux-swap 261MiB 4G
-parted $DISK mkpart "linux" btrfs 4G 100%
+parted --script $DISK \
+	mklabel gpt \
+	mkpart primary fat32 1MiB 261MiB \
+	set 1 esp on \
+	mkpart primary linux-swap 261MiB 4G \
+	mkpart primary btrfs 4G 100%
 
 mkfs.fat -F 32 $EFI
 mkswap $SWAP
