@@ -17,48 +17,21 @@ read DISK
 TIME="Europe/Samara"
 timedatectl set-timezone $TIME
 
-#make_partitions()
-#{
-#	parted
-#	echo "Continue[y/n]?"
-#	read ANSWER
-#	if [ "$ANSWER" != "y" ]; then
-#		make_partitions
-#	fi
-#}
-
-#make_partitions
 
 parted -s $DISK mklabel gpt
 
-# Создаем первый раздел (например, EFI раздел, размером 512MiB)
 parted -s $DISK mkpart primary fat32 1MiB 513MiB
 parted -s $DISK set 1 esp on
+parted -s $DISK mkpart primary linux-swap 513MiB 4GiB
+parted -s $DISK mkpart primary btrfs 4GiB 100%
 
-# Создаем второй раздел (например, корневой раздел, размером 20GiB)
-parted -s $DISK mkpart primary ext4 513MiB 20.5GiB
+mkfs.fat -F 32 /dev/sda1
+mkswap /dev/sda2
+mkfs.btrfs /dev/sda3
 
-# Создаем третий раздел (например, раздел подкачки, размером 4GiB)
-parted -s $DISK mkpart primary linux-swap 20.5GiB 24.5GiB
-
-# Создаем четвертый раздел (например, раздел /home, на оставшееся пространство)
-parted -s $DISK mkpart primary ext4 24.5GiB 100%
-
-echo "Enter EFI partition:"
-read EFI
-
-echo "Enter swap partition:"
-read SWAP
-
-echo "Enter root partition:"
-read ROOT
-
-mkfs.fat -F 32 $EFI
-mkswap $SWAP
-mkfs.btrfs $ROOT
-
-mount $ROOT /mnt
-mount --mkdir $EFI /mnt/boot
+mount /dev/sda3 /mnt
+mkdir -p /mnt/boot/EFI
+mount /dev/sda1 /mnt/boot/EFI
 swapon $SWAP
 
 pacstrap -K /mnt base linux linux-firmware neovim grub efibootmgr os-prober
