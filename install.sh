@@ -39,7 +39,7 @@ swapon $SWAP
 pacstrap -K /mnt base linux linux-firmware neovim
 genfstab -U /mnt >> /mnt/etc/fstab
 
-arch-chroot /mnt
+arch-chroot /mnt /bin/bash -e << EOF
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 hwclock --systohc
 
@@ -54,3 +54,4 @@ printf $HOSTNAME > /etc/hostname
 echo $ROOTPASS | passwd
 useradd -m $USERNAME
 echo $USERPASS | passwd $USERNAME
+EOF
