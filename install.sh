@@ -15,27 +15,34 @@ echo "Enter /dev/DISK:"
 read DISK
 
 TIME="Europe/Samara"
-
 timedatectl set-timezone $TIME
 
-make_partitions()
-{
-	parted
-	echo "Continue[y/n]?"
-	read ANSWER
-	if [ "$ANSWER" != "y" ]; then
-		make_partitions
-	fi
-}
+#make_partitions()
+#{
+#	parted
+#	echo "Continue[y/n]?"
+#	read ANSWER
+#	if [ "$ANSWER" != "y" ]; then
+#		make_partitions
+#	fi
+#}
 
-make_partitions
+#make_partitions
 
-#parted --script $DISK \
-#	mklabel gpt \
-#	mkpart "efi" fat32 1MiB 261MiB \
-#	set 1 esp on \
-#	mkpart "swap" linux-swap 261MiB 4G \
-#	mkpart "linux" btrfs 4G 100%
+parted -s $DISK mklabel gpt
+
+# Создаем первый раздел (например, EFI раздел, размером 512MiB)
+parted -s $DISK mkpart primary fat32 1MiB 513MiB
+parted -s $DISK set 1 esp on
+
+# Создаем второй раздел (например, корневой раздел, размером 20GiB)
+parted -s $DISK mkpart primary ext4 513MiB 20.5GiB
+
+# Создаем третий раздел (например, раздел подкачки, размером 4GiB)
+parted -s $DISK mkpart primary linux-swap 20.5GiB 24.5GiB
+
+# Создаем четвертый раздел (например, раздел /home, на оставшееся пространство)
+parted -s $DISK mkpart primary ext4 24.5GiB 100%
 
 echo "Enter EFI partition:"
 read EFI
@@ -58,9 +65,9 @@ pacstrap -K /mnt base linux linux-firmware neovim grub efibootmgr os-prober
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/bash -e << EOF
-mkdir /boot/efi
-grub-install --efi-directory=/boot/efi --target=x86_64-efi $DISK
-grub-mkconfig -o /boot/grub/grub.cfg
+#mkdir /boot/efi
+#grub-install --efi-directory=/boot/efi --target=x86_64-efi $DISK
+#grub-mkconfig -o /boot/grub/grub.cfg
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 hwclock --systohc
 
