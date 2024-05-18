@@ -67,7 +67,7 @@ locale-gen
 printf 'LANG=ru_RU.UTF-8' > /etc/locale.conf
 printf $HOSTNAME > /etc/hostname
 
-echo $ROOTPASS | passwd
+echo "root:$ROOTPASS" | chpasswd
 useradd -m $USERNAME
-echo $USERPASS | passwd $USERNAME
+echo "$USERNAME:$USERPASS" | chpasswd
 EOF
