@@ -1,20 +1,4 @@
 #!/bin/bash
-
-replace()
-{
-	local from = $1
-	local to = $2
-	local conf_path = $3
-	sed -i -e 's/$from/$to/g' $conf_path
-}
-
-uncomment()
-{
-	local var_name = $1
-	local conf_path = $2
-	replace "#$var_name" "$var_name" $conf_path
-}
-
 setfont cyr-sun16
 
 echo "Enter hostname:"
@@ -33,10 +17,10 @@ echo "Enter /dev/DISK:"
 read DISK
 
 TIME="Europe/Samara"
+HOME_DIR="/home/$USERNAME" 
 timedatectl set-timezone $TIME
 
 parted -s $DISK mklabel gpt
-
 parted -s $DISK mkpart primary fat32 1MiB 513MiB
 parted -s $DISK set 1 esp on
 parted -s $DISK mkpart primary linux-swap 513MiB 4GiB
@@ -55,8 +39,6 @@ pacstrap -K /mnt base linux linux-firmware base-devel sudo man-db man-pages-ru n
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/bash -e << EOF
-
-HOME_DIR = "/home/$USERNAME" 
 
 #AUTOSTART
 systemctl enable NetworkManager
@@ -90,16 +72,17 @@ echo "$USERNAME:$USERPASS" | chpasswd
 #configs
 git clone https://github.com/MrApache/archinstall.git
 yes | cp -rf $HOME_DIR/archinstall/pacman.conf /etc/pacman.conf
+rm -rf archinstall
 pacman -Sy
 
 #drivers
 pacman -S mesa lib32-mesa amdvlk lib32-amdvlk
 
 #yay
-cd $HOME_DIR
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+cd ..
 rm -rf yay
 
 #Google chrome
