@@ -40,14 +40,6 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/bash -e << EOF
 
-#AUTOSTART
-systemctl enable NetworkManager
-printf '$USERNAME ALL=(ALL:ALL) ALL' >>/etc/sudoers
-
-#GRUB
-grub-install $DISK
-grub-mkconfig -o /boot/grub/grub.cfg
-
 #TIME
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 hwclock --systohc
@@ -79,16 +71,27 @@ pacman -Sy
 
 pacman -S mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
 
+#AUTOSTART
+systemctl enable NetworkManager
+printf '$USERNAME ALL=(ALL:ALL) ALL' >>/etc/sudoers
+
+#GRUB
+grub-install $DISK
+grub-mkconfig -o /boot/grub/grub.cfg
+
+su - $USERNAME
 #yay
-cd $HOME_DIR
+cd
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
-cd ..
+cd
 rm -rf yay
 
 #Google chrome
 yay -S google-chrome
 #AUR packages
+exit
+exit
 
 EOF
