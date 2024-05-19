@@ -73,7 +73,7 @@ pacman -S mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkma
 
 #AUTOSTART
 systemctl enable NetworkManager
-printf '$USERNAME ALL=(ALL:ALL) ALL' >>/etc/sudoers
+printf '$USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
 
 #GRUB
 grub-install $DISK
