@@ -35,7 +35,7 @@ mkdir -p /mnt/boot/EFI
 mount /dev/sda1 /mnt/boot/EFI
 swapon $SWAP
 
-pacstrap -K /mnt base linux linux-firmware base-devel sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty git
+pacstrap -K /mnt base linux linux-firmware base-devel git
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/bash -e << EOF
@@ -70,15 +70,17 @@ echo "$USERNAME:$USERPASS" | chpasswd
 #AUR packages
 
 #configs
+cd $HOME_DIR
 git clone https://github.com/MrApache/archinstall.git
 yes | cp -rf $HOME_DIR/archinstall/pacman.conf /etc/pacman.conf
+cd ..
 rm -rf archinstall
 pacman -Sy
 
-#drivers
-pacman -S mesa lib32-mesa amdvlk lib32-amdvlk
+pacman -S mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
 
 #yay
+cd $HOME_DIR
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
