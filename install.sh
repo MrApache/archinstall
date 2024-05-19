@@ -69,7 +69,7 @@ cd ..
 rm -rf archinstall
 pacman -Sy
 
-pacman -S mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
+pacman -S --noconfirm mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
 
 #AUTOSTART
 systemctl enable NetworkManager
@@ -79,19 +79,18 @@ printf '$USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
 grub-install $DISK
 grub-mkconfig -o /boot/grub/grub.cfg
 
-su - $USERNAME
 #yay
+su - $USERNAME << EOT
 cd
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 cd
 rm -rf yay
+EOT
 
 #Google chrome
-yay -S google-chrome
+yay -S --noconfirm google-chrome
 #AUR packages
-exit
-exit
 
 EOF
