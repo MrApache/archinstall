@@ -65,6 +65,10 @@ echo "$USERNAME:$USERPASS" | chpasswd
 cd $HOME_DIR
 git clone https://github.com/MrApache/archinstall.git
 yes | cp -rf $HOME_DIR/archinstall/pacman.conf /etc/pacman.conf
+yes | mv $HOME_DIR/archinstall/first_startup.sh $HOME_DIR/first_startup.sh
+printf '#!/bin/sh -e' >> /etc/rc.local
+printf '$HOME_DIR/first_startup.sh' >> /etc/rc.local
+printf 'exit 0' >> /etc/rc.local
 cd ..
 rm -rf archinstall
 pacman -Sy
@@ -78,19 +82,6 @@ printf '$USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
 #GRUB
 grub-install $DISK
 grub-mkconfig -o /boot/grub/grub.cfg
-
-#yay
-su - $USERNAME << EOT
-cd
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si --noconfirm
-cd
-rm -rf yay
-EOT
-
-#Google chrome
-yay -S --noconfirm google-chrome
-#AUR packages
-
 EOF
+
+reboot
