@@ -1,9 +1,14 @@
 [Unit]
-Description = "First startup service"
+Description=First startup
+After=sysinit.target
+StartLimitIntervalSec=0
 
 [Service]
-WorkingDirectory= /home/irisu
-ExecStart= /home/irisu/first_startup.sh
+Type=forking
+Restart=no
+User=irisu
+WorkingDirectory=/home/irisu
+ExecStart=/home/irisu/first_startup.sh
 
 [Install]
 WantedBy=multi-user.target

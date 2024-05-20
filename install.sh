@@ -59,20 +59,19 @@ echo "root:$ROOTPASS" | chpasswd
 useradd -m $USERNAME
 echo "$USERNAME:$USERPASS" | chpasswd
 
-#AUR packages
-
 #configs
 cd $HOME_DIR
 git clone https://github.com/MrApache/archinstall.git
 yes | cp -rf $HOME_DIR/archinstall/pacman.conf /etc/pacman.conf
 yes | mv $HOME_DIR/archinstall/first_startup.sh $HOME_DIR/first_startup.sh
-yes | mv $HOME_DIR/startup.service /etc/systemd/system/startup.service
+yes | mv $HOME_DIR/archinstall/startup.service /etc/systemd/system/startup.service
+chmod +x $HOME_DIR/first_startup.sh
 rm -rf archinstall
 pacman -Sy
 
 systemctl enable startup.service
 
-pacman -S --noconfirm mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
+pacman -S --noconfirm mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty steam
 
 #AUTOSTART
 systemctl enable NetworkManager
@@ -82,4 +81,3 @@ printf '$USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
 grub-install $DISK
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
-reboot
