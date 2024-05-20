@@ -66,12 +66,11 @@ cd $HOME_DIR
 git clone https://github.com/MrApache/archinstall.git
 yes | cp -rf $HOME_DIR/archinstall/pacman.conf /etc/pacman.conf
 yes | mv $HOME_DIR/archinstall/first_startup.sh $HOME_DIR/first_startup.sh
-printf '#!/bin/sh -e' >> /etc/rc.local
-printf '$HOME_DIR/first_startup.sh' >> /etc/rc.local
-printf 'exit 0' >> /etc/rc.local
-cd ..
+yes | mv $HOME_DIR/startup.service /etc/systemd/system/startup.service
 rm -rf archinstall
 pacman -Sy
+
+systemctl enable startup.service
 
 pacman -S --noconfirm mesa lib32-mesa amdvlk lib32-amdvlk sudo man-db man-pages-ru networkmanager neovim grub efibootmgr os-prober hyprland kitty 
 
@@ -83,5 +82,4 @@ printf '$USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
 grub-install $DISK
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
-
 reboot

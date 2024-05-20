@@ -1,0 +1,9 @@
+[Unit]
+Description = "First startup service"
+
+[Service]
+WorkingDirectory= /home/irisu
+ExecStart= /home/irisu/first_startup.sh
+
+[Install]
+WantedBy=multi-user.target

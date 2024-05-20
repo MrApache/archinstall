@@ -8,4 +8,6 @@ cd && rm -rf yay
 #Google chrome
 yay -S --noconfirm google-chrome
 
-sudo rm -rf /etc/rc.local
+systemctl stop startup.service
+sudo rm -rf /etc/systemd/system/startup.service
+sudo rm -rf /home/irisu/first_startup.sh
