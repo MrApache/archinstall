@@ -58,7 +58,7 @@ arch-chroot /mnt bash -c "
     echo 'root:$ROOTPASS' | chpasswd
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-    useradd -m -G wheel input libvirt $USERNAME
+    useradd -m -G wheel,input,libvirt $USERNAME
     echo '$USERNAME:$PASSWORD' | chpasswd
 
     systemctl enable libvirtd.socket
