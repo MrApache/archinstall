@@ -32,18 +32,18 @@ echo 'ParallelDownloads = 15' >> /etc/pacman.conf
 reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
-pacstrap -K /mnt base linux linux-firmware man-db man-pages man-pages-ru vim networkmanager git base-devel terminus-font noto-fonts-cjk otf-hermit-nerd kitty grub os-prober efibootmgr mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel lib32-vulkan-intel steam pipewire lib32-pipewire pipewire-alsa pipewire-pulse pipewire-jack lib32-pipewire-jack xorg-server-xwayland telegram-desktop waybar mono mpd ncmpcpp doublecmd rofi gnome-keyring wl-clipboard wine wev webkit2gtk virt-manager qemu-base qbittorrent papirus-icon-theme obs-studio mpv mesa-vpdau libva-utils libva-mesa-driver libnotify intel-gpu-tools hyprland engrampa dunst dnsmasq amdapp-sdk alsa-utils
-
-getfstab -U /mnt >> /mnt/etc/fstab
-echo '\n' >> /mnt/eft/fstab
-echo '# /dev/sdb1' >> /mnt/eft/fstab
-echo 'UUID=9b066c34-bdf8-405d-88c6-ceb094c75c7e	/mnt/Storage	ext4	defaults,X-mount.mkdir	0 3' >> /mnt/eft/fstab
+pacstrap -K /mnt base linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
+#echo '\n' >> /mnt/eft/fstab
+#echo '# /dev/sdb1' >> /mnt/eft/fstab
+#echo 'UUID=9b066c34-bdf8-405d-88c6-ceb094c75c7e	/mnt/Storage	ext4	defaults,X-mount.mkdir	0 3' >> /mnt/eft/fstab
 
 arch-chroot /mnt bash -c "
     echo '[multilib]' >> /etc/pacman.conf
     echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
     echo 'ParallelDownloads = 15' >> /etc/pacman.conf
     pacman -Sy
+    pacman -S man-db man-pages man-pages-ru vim networkmanager git base-devel terminus-font noto-fonts-cjk otf-hermit-nerd kitty grub os-prober efibootmgr mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel lib32-vulkan-intel steam pipewire lib32-pipewire pipewire-alsa pipewire-pulse pipewire-jack lib32-pipewire-jack xorg-server-xwayland telegram-desktop waybar mono mpd ncmpcpp doublecmd rofi gnome-keyring wl-clipboard wine wev webkit2gtk virt-manager qemu-base qbittorrent papirus-icon-theme obs-studio mpv libva-utils libva-mesa-driver libnotify intel-gpu-tools hyprland engrampa dunst dnsmasq alsa-utils
 
     ln -sf /usr/share/zoneinfo/Europe/Samara /etc/localtime
     hwclock --systohc
@@ -58,8 +58,10 @@ arch-chroot /mnt bash -c "
     echo 'root:$ROOTPASS' | chpasswd
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-    useradd -m -G wheel input $USERNAME
+    useradd -m -G wheel input libvirt $USERNAME
     echo '$USERNAME:$PASSWORD' | chpasswd
+
+    systemctl enable libvirtd.socket
 
     cd /home/$USERNAME
     git clone https://aur.archlinux.org/yay.git
@@ -69,11 +71,12 @@ arch-chroot /mnt bash -c "
     cd yay
     makepkg -si
 
-    yay -S rider untiyhub portproton dotnet-sdk-8 pwvucontrol mission-center xdg-desktop-portal-hyprland jetbrains-toolbox hyprpicker
+    yay -S rider untiyhub portproton dotnet-sdk-8 pwvucontrol mission-center xdg-desktop-portal-hyprland jetbrains-toolbox hyprpicker amdapp-sdk mesa-vpdau
 
     systemctl --user enable mpd
 
     cd
+    mkdir .config
     git clone https://github.com/MrApache/archinstall.git
     cd archinstall/dotfiles/usercfg
     rm -rf /home/$USERNAME/.config/*
