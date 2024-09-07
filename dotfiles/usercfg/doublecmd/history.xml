@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doublecmd>
+  <History>
+    <Navigation>
+      <Item>/</Item>
+      <Item>/boot/</Item>
+      <Item>/boot/efi/</Item>
+      <Item>/home/apache/.config/mpv/</Item>
+      <Item>/home/apache/.config/mpv/shaders/</Item>
+      <Item>/home/apache/</Item>
+      <Item>/home/apache/Downloads/</Item>
+      <Item>/home/apache/Downloads/xd/</Item>
+      <Item>/home/apache/Downloads/Phonk/</Item>
+      <Item>/home/apache/Music/</Item>
+      <Item>/usr/lib/</Item>
+      <Item>/home/</Item>
+      <Item>/home/apache/.config/</Item>
+      <Item>/home/apache/.config/bash/</Item>
+      <Item>/home/apache/Downloads/autotiling-1.9.3/</Item>
+      <Item>/home/apache/Downloads/autotiling-1.9.3/autotiling/</Item>
+      <Item>/usr/</Item>
+    </Navigation>
+    <CommandLine>
+      <Item>cd .config/mpv/</Item>
+      <Item>cd .config</Item>
+      <Item>mkdir Phonk</Item>
+      <Item>cd</Item>
+      <Item>sudo mv autotiling /usr/bin/</Item>
+      <Item>chmod +x autotiling</Item>
+    </CommandLine>
+    <FileMask>
+      <Item>*.*</Item>
+    </FileMask>
+    <VolumeSize/>
+    <CreateDirectories>
+      <Item Tag="0">shaders</Item>
+    </CreateDirectories>
+    <SearchText/>
+    <SearchTextPath/>
+    <ReplaceText/>
+    <ReplaceTextPath/>
+    <RenameNameMask/>
+    <RenameExtMask/>
+    <SearchDirectories/>
+    <SearchExcludeFiles/>
+    <SearchExcludeDirectories/>
+  </History>
+</doublecmd>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doublecmd>
+  <Tabs>
+    <OpenedTabs>
+      <Left>
+        <ActiveTab>0</ActiveTab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>12</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry>
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="..">/usr/lib/doublecmd/</Path>
+                  <Path Filename="doublecmd">/usr/lib/</Path>
+                  <Path Filename="lib">/usr/</Path>
+                  <Path Filename="..">/usr/lib/</Path>
+                  <Path Filename="..">/usr/</Path>
+                  <Path Filename="home">/</Path>
+                  <Path Filename="..">/home/</Path>
+                  <Path Filename="home">/</Path>
+                  <Path Filename="apache">/home/</Path>
+                  <Path Filename="Downloads">/home/apache/</Path>
+                  <Path Filename="autotiling-1.9.3">/home/apache/Downloads/</Path>
+                  <Path Filename="autotiling">/home/apache/Downloads/autotiling-1.9.3/</Path>
+                  <Path Filename="..">/home/apache/Downloads/autotiling-1.9.3/autotiling/</Path>
+                  <Path Filename="autotiling">/home/apache/Downloads/autotiling-1.9.3/</Path>
+                  <Path Filename="..">/home/apache/Downloads/autotiling-1.9.3/autotiling/</Path>
+                  <Path Filename="autotiling">/home/apache/Downloads/autotiling-1.9.3/</Path>
+                  <Path Filename="..">/home/apache/Downloads/autotiling-1.9.3/autotiling/</Path>
+                  <Path Filename="..">/home/apache/Downloads/autotiling-1.9.3/</Path>
+                  <Path Filename="..">/home/apache/Downloads/</Path>
+                  <Path Filename="Downloads">/home/apache/</Path>
+                  <Path Filename="..">/home/apache/Downloads/</Path>
+                  <Path Filename="JA+d%HjsdwnTK+5">/home/apache/</Path>
+                  <Path Filename="bash">/home/apache/.config/</Path>
+                  <Path Filename="..">/home/apache/.config/bash/</Path>
+                  <Path Filename="..">/home/apache/.config/</Path>
+                  <Path Filename="..">/home/apache/</Path>
+                  <Path Filename="apache">/home/</Path>
+                  <Path Filename="Music">/home/apache/</Path>
+                  <Path Filename="Nightcore - 18 (English).mp3">/home/apache/Music/</Path>
+                  <Path Filename="Music">/home/apache/</Path>
+                  <Path Filename="Boom Kitty - Badland.mp3">/home/apache/Music/</Path>
+                </Paths>
+              </Entry>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="..">/boot/efi/</Path>
+                  <Path Filename="..">/boot/</Path>
+                  <Path Filename="boot">/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+      </Left>
+      <Right>
+        <ActiveTab>0</ActiveTab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>12</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="..">/usr/lib/doublecmd/</Path>
+                  <Path Filename="doublecmd">/usr/lib/</Path>
+                  <Path Filename="Downloads">/home/apache/</Path>
+                  <Path Filename="Phonk">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/Phonk/</Path>
+                  <Path Filename="Phonk">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/Phonk/</Path>
+                  <Path Filename="Phonk">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/Phonk/</Path>
+                  <Path Filename="Phonk">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/Phonk/</Path>
+                  <Path Filename="Phonk">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/Phonk/</Path>
+                  <Path Filename="xd">/home/apache/Downloads/</Path>
+                  <Path Filename="..">/home/apache/Downloads/xd/</Path>
+                  <Path Filename="cf3ee4dde8ec6590f27cf2c0e2f53729.jpg">/home/apache/Downloads/</Path>
+                  <Path Filename="Downloads">/home/apache/</Path>
+                  <Path Filename="shaders">/home/apache/.config/mpv/</Path>
+                  <Path Filename="..">/home/apache/.config/mpv/shaders/</Path>
+                  <Path Filename="input.conf">/home/apache/.config/mpv/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+      </Right>
+    </OpenedTabs>
+  </Tabs>
+</doublecmd>
