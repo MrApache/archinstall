@@ -32,7 +32,7 @@ echo 'ParallelDownloads = 15' >> /etc/pacman.conf
 reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy
 
-pacstrap -K /mnt base linux linux-firmware man-db man-pages man-pages-ru vim networkmanager git base-devel sway terminus-font noto-fonts-cjk otf-hermit-nerd kitty grub os-prober efibootmgr mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel lib32-vulkan-intel steam pipewire lib32-pipewire pipewire-alsa pipewire-pulse pipewire-jack lib32-pipewire-jack xorg-server-xwayland telegram-desktop waybar mono mpd ncmpcpp doublecmd bemenu gnome-keyring
+pacstrap -K /mnt base linux linux-firmware man-db man-pages man-pages-ru vim networkmanager git base-devel terminus-font noto-fonts-cjk otf-hermit-nerd kitty grub os-prober efibootmgr mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel lib32-vulkan-intel steam pipewire lib32-pipewire pipewire-alsa pipewire-pulse pipewire-jack lib32-pipewire-jack xorg-server-xwayland telegram-desktop waybar mono mpd ncmpcpp doublecmd rofi gnome-keyring wl-clipboard wine wev webkit2gtk virt-manager qemu-base qbittorrent papirus-icon-theme obs-studio mpv mesa-vpdau libva-utils libva-mesa-driver libnotify intel-gpu-tools hyprland engrampa dunst dnsmasq amdapp-sdk alsa-utils
 
 getfstab -U /mnt >> /mnt/etc/fstab
 echo '\n' >> /mnt/eft/fstab
@@ -61,15 +61,15 @@ arch-chroot /mnt bash -c "
     useradd -m -G wheel input $USERNAME
     echo '$USERNAME:$PASSWORD' | chpasswd
 
-    cd /home/apache
+    cd /home/$USERNAME
     git clone https://aur.archlinux.org/yay.git
-    chown -R apache yay
+    chown -R $USERNAME yay
     su $USERNAME
     cd
     cd yay
     makepkg -si
 
-    yay -S rider-eap untiyhub google-chrome portproton dotnet-sdk-8 pwvucontrol mission-center
+    yay -S rider untiyhub portproton dotnet-sdk-8 pwvucontrol mission-center xdg-desktop-portal-hyprland jetbrains-toolbox hyprpicker
 
     systemctl --user enable mpd
 
